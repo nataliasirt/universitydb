@@ -1,9 +1,8 @@
-package dao;
+package com.solvd.university.dao;
 
 import java.util.List;
 
-public interface IDAO {
-    public interface DAO<T>{
+public interface DAO<T> {
         T select(int id);
         List<T> selectAll();
         void insert(T t);
@@ -11,4 +10,4 @@ public interface IDAO {
         void delete(T t);
 
     }
-}
+
