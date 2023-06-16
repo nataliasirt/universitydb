@@ -5,11 +5,22 @@ import com.solvd.university.models.Department;
 import java.util.List;
 
 public interface IDepartmentDAO extends DAO<Department> {
-    Department select(int id);
-    List<Department> selectAll();
-    void insert();
-    void update();
-    void delete();
+
+    @Override
+    Department get(int id);
+
+    @Override
+    List<Department> getAll();
+
+    @Override
+    void insert(Department department);
+
+    @Override
+    void update(Department department, int id);
+
+    @Override
+    void delete(Department department);
+
 
 
 }

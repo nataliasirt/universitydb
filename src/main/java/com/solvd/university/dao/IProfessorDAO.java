@@ -6,9 +6,18 @@ import com.solvd.university.models.Professor;
 import java.util.List;
 
 public interface IProfessorDAO extends DAO<Professor> {
-    Professor select(int id);
-    List<Professor> selectAll();
+    @Override
+    Professor get(int id);
 
+    @Override
+    List<Professor> getAll();
 
+    @Override
+    void insert(Professor professor);
 
+    @Override
+    void update(Professor professor, int id);
+
+    @Override
+    void delete(Professor professor);
 }
