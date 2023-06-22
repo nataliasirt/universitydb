@@ -6,14 +6,12 @@
         <nickname>x</nickname>
         <marks>85</marks>
     </student>
-
     <student id = "493">
         <firstname>neil</firstname>
         <lastname>amstrong</lastname>
         <nickname>neily</nickname>
         <marks>95</marks>
     </student>
-
     <student id = "593">
         <firstname>nikola</firstname>
         <lastname>tesla</lastname>

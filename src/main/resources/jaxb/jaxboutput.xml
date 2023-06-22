@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<department departmentId="8">
+    <professors>
+        <professor>
+            <studentID>0</studentID>
+            <userID>0</userID>
+            <degree>Dark Wizard</degree>
+            <professorID>0</professorID>
+        </professor>
+        <professor>
+            <studentID>0</studentID>
+            <userID>0</userID>
+            <degree>Dark magic expert</degree>
+            <professorID>0</professorID>
+        </professor>
+    </professors>
+    <area>Biology</area>
+    <head>
+        <studentID>0</studentID>
+        <userID>0</userID>
+        <degree>Scientist</degree>
+        <professorID>0</professorID>
+    </head>
+</department>

@@ -4,7 +4,9 @@ public class User {
     private int userID;
     private String userName;
     private int studentID;
-    public User(){}
+
+    public User() {
+    }
 
     public User(int userID, String userName, String password, int studentID) {
         this.userID = userID;
@@ -36,14 +38,4 @@ public class User {
         this.studentID = studentID;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userID=" + userID +
-                ", userName='" + userName + '\'' +
-                ", studentID=" + studentID +
-                '}';
-    }
 }
-
-
