@@ -3,16 +3,12 @@ package com.solvd.university.models;
 public class User {
     private int userID;
     private String userName;
-    private String password;
     private int studentID;
-    public User(){
-
-    }
+    public User(){}
 
     public User(int userID, String userName, String password, int studentID) {
         this.userID = userID;
         this.userName = userName;
-        this.password = password;
         this.studentID = studentID;
     }
 
@@ -32,14 +28,6 @@ public class User {
         this.userName = userName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public int getStudentID() {
         return studentID;
     }
@@ -53,7 +41,6 @@ public class User {
         return "User{" +
                 "userID=" + userID +
                 ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
                 ", studentID=" + studentID +
                 '}';
     }
