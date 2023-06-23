@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class JAXBParser {
+public class JAXBDepartmentParser {
     private static final Logger LOGGER = LogManager.getLogger();
 
     public static void marshallDepartment(Department department) throws JAXBException {
@@ -32,11 +32,11 @@ public class JAXBParser {
 
     public static void main(String[] args) throws JAXBException, IOException {
 
-        Department department = JAXBParser.unmarshallDepartment(PATH);
+        Department department = JAXBDepartmentParser.unmarshallDepartment(PATH);
 
         System.out.println(department);
 
-        JAXBParser.marshallDepartment(department);
+        JAXBDepartmentParser.marshallDepartment(department);
     }
 }
 
