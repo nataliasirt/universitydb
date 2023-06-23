@@ -1,0 +1,40 @@
+{
+  "groupId" : 87,
+  "groupCode" : "AH93K7",
+  "head" : {
+    "userId": "99",
+    "name" : "henry",
+    "surname" : "ford",
+    "personalId" : 62812,
+    "email" : "ford@gmail.com",
+    "professorId" : 773,
+    "degree" : "Engineer",
+    "workedHours" : null
+  },
+  "subject" : {
+    "subjectId" : 36,
+    "name" : "Engineering"
+  },
+  "students" : [
+    {
+      "userId": "332",
+      "name" : "nikolaus",
+      "surname" : "otto",
+      "personalId" : 638,
+      "email" : "otto@gmail.com",
+      "studentId" : 543,
+      "enrollment" : 98312,
+      "exams" : null
+    },
+    {
+      "userId": "334",
+      "name" : "Alexander",
+      "surname" : "Bell",
+      "personalId" : 63298,
+      "email" : "bell@gmail.com",
+      "studentId" : 547,
+      "enrollment" : 9831322,
+      "exams" : null
+    }
+  ]
+}

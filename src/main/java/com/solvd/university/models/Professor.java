@@ -15,7 +15,6 @@ public class Professor extends User{
 
     public Professor(){}
 
-
     public Professor(int userId, String name, String surname, int personalId, String email, int professorId, String degree) {
         super(userId, name, surname, personalId, email);
         this.professorId = professorId;

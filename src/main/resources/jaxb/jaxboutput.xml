@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <department departmentId="8">
     <professors>
-        <professor id="0">
+        <professor>
             <email>tesla@gmail.com</email>
             <name>Nikola</name>
             <personalId>3823632</personalId>
             <surname>Tesla</surname>
+            <userId>109</userId>
             <degree>Engineer</degree>
             <professorId>0</professorId>
         </professor>
-        <professor id="0">
+        <professor>
             <email>curie@gmail.com</email>
             <name>Marie</name>
             <personalId>78232</personalId>
             <surname>Curie</surname>
+            <userId>367</userId>
             <degree>Physicist</degree>
             <professorId>0</professorId>
         </professor>
     </professors>
     <area>Engineering</area>
-    <head id="0">
+    <head>
         <email>mask@gmail.com</email>
         <name>Elon</name>
         <personalId>33822172</personalId>
         <surname>Mask</surname>
+        <userId>107</userId>
         <degree>Engineer</degree>
         <professorId>0</professorId>
     </head>

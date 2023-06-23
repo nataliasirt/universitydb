@@ -10,6 +10,8 @@ public class Student extends User{
     @JsonProperty
     private List<Exam> exams;
 
+    public Student(){}
+
     public Student(int userId, String name, String surname, int personalId, String email, int studentId, int enrollment) {
         super(userId, name, surname, personalId, email);
         this.studentId = studentId;

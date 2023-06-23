@@ -1,8 +1,8 @@
 package com.solvd.university.models;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class User {
@@ -15,10 +15,8 @@ public class User {
 
     private int personalId;
 
-    public User(){}
-
     private String email;
-    public User (int userId, String userName, String password, int studentID){
+    public User (){
 
     }
 
@@ -30,6 +28,13 @@ public class User {
         this.email = email;
     }
 
+    public User (String name, String surname, int personalId, String email) {
+        this.userId = userId;
+        this.name = name;
+        this.surname = surname;
+        this.personalId = personalId;
+        this.email = email;
+    }
 
     public int getUserId() {
         return userId;

@@ -5,7 +5,7 @@ public class Employee extends User{
     private String position;
     private WorkedHours workedHours;
 
-    public Employee(){}
+    public Employee (){}
 
     public Employee (int userId, String name, String surname, int personalId, String email, int employeeId, String position) {
         super(userId, name, surname, personalId, email);
