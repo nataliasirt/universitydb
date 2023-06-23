@@ -19,8 +19,6 @@ public class Department {
     public Department() {
     }
 
-    ;
-
     public Department(int departmentId, String area, Professor head) {
         this.departmentId = departmentId;
         this.area = area;

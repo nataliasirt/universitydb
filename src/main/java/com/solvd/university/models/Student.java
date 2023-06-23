@@ -1,35 +1,31 @@
 package com.solvd.university.models;
-
-import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-@XmlRootElement(name = "Student")
-public class Student extends User {
-    private int studentID;
-    private String fullName;
+public class Student extends User{
+    @JsonProperty
+    private int studentId;
+    @JsonProperty
     private int enrollment;
+    @JsonProperty
     private List<Exam> exams;
-    public Student(){}
 
-    public Student(int studentID, String fullName, int enrollment, List<Exam> exams) {
-        this.studentID = studentID;
-        this.fullName = fullName;
+    public Student(int userId, String name, String surname, int personalId, String email, int studentId, int enrollment) {
+        super(userId, name, surname, personalId, email);
+        this.studentId = studentId;
         this.enrollment = enrollment;
-        this.exams = exams;
     }
 
-    @Override
-    public int getStudentID() {
-        return studentID;
+    public int getStudentId() {
+        return this.studentId;
     }
 
-    @Override
-    public void setStudentID(int studentID) {
-        this.studentID = studentID;
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
     }
 
     public int getEnrollment() {
-        return enrollment;
+        return this.enrollment;
     }
 
     public void setEnrollment(int enrollment) {
@@ -37,21 +33,21 @@ public class Student extends User {
     }
 
     public List<Exam> getExams() {
-        return exams;
+        return this.exams;
     }
 
     public void setExams(List<Exam> exams) {
         this.exams = exams;
     }
 
-    public String getFullName() {
-        return fullName;
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentId=" + studentId + " " +
+                super.toString() +
+                ", enrollment=" + enrollment +
+                ", exams=" + exams +
+                '}';
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
 }
-
-
-

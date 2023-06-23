@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <department departmentId="8">
     <professors>
-        <professor>
-            <studentID>0</studentID>
-            <userID>0</userID>
-            <degree>Dark Wizard</degree>
-            <professorID>0</professorID>
+        <professor id="0">
+            <email>tesla@gmail.com</email>
+            <name>Nikola</name>
+            <personalId>3823632</personalId>
+            <surname>Tesla</surname>
+            <degree>Engineer</degree>
+            <professorId>0</professorId>
         </professor>
-        <professor>
-            <studentID>0</studentID>
-            <userID>0</userID>
-            <degree>Dark magic expert</degree>
-            <professorID>0</professorID>
+        <professor id="0">
+            <email>curie@gmail.com</email>
+            <name>Marie</name>
+            <personalId>78232</personalId>
+            <surname>Curie</surname>
+            <degree>Physicist</degree>
+            <professorId>0</professorId>
         </professor>
     </professors>
-    <area>Biology</area>
-    <head>
-        <studentID>0</studentID>
-        <userID>0</userID>
-        <degree>Scientist</degree>
-        <professorID>0</professorID>
+    <area>Engineering</area>
+    <head id="0">
+        <email>mask@gmail.com</email>
+        <name>Elon</name>
+        <personalId>33822172</personalId>
+        <surname>Mask</surname>
+        <degree>Engineer</degree>
+        <professorId>0</professorId>
     </head>
 </department>

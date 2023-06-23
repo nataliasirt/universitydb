@@ -1,23 +1,14 @@
 package com.solvd.university.dao;
 
-import com.solvd.university.dao.DAO;
 import com.solvd.university.models.Professor;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface IProfessorDAO extends DAO<Professor> {
-    @Override
-    Professor get(int id);
-
-    @Override
-    List<Professor> getAll();
-
-    @Override
-    void insert(Professor professor);
-
-    @Override
-    void update(Professor professor, int id);
-
-    @Override
-    void delete(Professor professor);
+    Professor select(int id);
+    List<Professor> selectAll();
+    void insert(@Param("professor") Professor professor);
+    void update(@Param("professor") Professor professor, @Param("id") int id);
+    void delete(@Param("professor") Professor professor);
 }

@@ -1,31 +1,31 @@
 <?xml-model href="departmentdata.xsd"?>
 
 <department departmentId="8">
-    <area>Biology</area>
+    <area>Engineering</area>
     <head professorId="27">
         <userId>107</userId>
-        <name>Riichiro</name>
-        <surname>Inagaki</surname>
+        <name>Elon</name>
+        <surname>Mask</surname>
         <personalId>33822172</personalId>
-        <email>drstone@gmail.com</email>
-        <degree>Scientist</degree>
+        <email>mask@gmail.com</email>
+        <degree>Engineer</degree>
     </head>
     <professors>
         <professor professorId="393">
             <userId>109</userId>
-            <name>Tom</name>
-            <surname>Riddle</surname>
+            <name>Nikola</name>
+            <surname>Tesla</surname>
             <personalId>3823632</personalId>
-            <email>voldemort@gmail.com</email>
-            <degree>Dark Wizard</degree>
+            <email>tesla@gmail.com</email>
+            <degree>Engineer</degree>
         </professor>
         <professor professorId="243">
             <userId>367</userId>
-            <name>Severus</name>
-            <surname>Snape</surname>
+            <name>Marie</name>
+            <surname>Curie</surname>
             <personalId>78232</personalId>
-            <email>snape@gmail.com</email>
-            <degree>Dark magic expert</degree>
+            <email>curie@gmail.com</email>
+            <degree>Physicist</degree>
         </professor>
     </professors>
 </department>

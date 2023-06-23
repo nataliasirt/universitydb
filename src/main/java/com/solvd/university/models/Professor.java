@@ -1,60 +1,61 @@
 package com.solvd.university.models;
 
-public class Professor  extends User {
-    private int professorID;
-    private String firstName;
-    private String lastName;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "professor")
+public class Professor extends User{
+
+    private int professorId;
+
     private String degree;
+
+    private WorkedHours workedHours;
 
     public Professor(){}
 
-    public Professor(int userID, String userName, String password, int studentID, int professorID, String firstName, String lastName, String degree) {
-        super(userID, userName, password, studentID);
-        this.professorID = professorID;
-        this.firstName = firstName;
-        this.lastName = lastName;
+
+    public Professor(int userId, String name, String surname, int personalId, String email, int professorId, String degree) {
+        super(userId, name, surname, personalId, email);
+        this.professorId = professorId;
         this.degree = degree;
     }
 
-    public int getProfessorID() {
-        return professorID;
+    public int getProfessorId() {
+        return this.professorId;
     }
 
-    public void setProfessorID(int professorID) {
-        this.professorID = professorID;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    @XmlAttribute(name = "professorId")
+    public void setProfessorId(int professorId) {
+        this.professorId = professorId;
     }
 
     public String getDegree() {
-        return degree;
+        return this.degree;
     }
 
+    @XmlElement(name = "degree")
     public void setDegree(String degree) {
         this.degree = degree;
     }
 
+
+    public WorkedHours getWorkedHours() {
+        return workedHours;
+    }
+
+    public void setWorkedHours(WorkedHours workedHours) {
+        this.workedHours = workedHours;
+    }
+
     @Override
     public String toString() {
-        return "Professor{" +
-                "professorID=" + professorID +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+        return  "Professor{" +
+                "professorId=" + professorId + " " +
+                super.toString() +
                 ", degree='" + degree + '\'' +
+                ", workedHours=" + workedHours +
                 '}';
     }
 }

@@ -1,0 +1,11 @@
+{
+  "professor" : {
+    "id" : 4,
+    "name" : "Tom",
+    "position" : "Scientist",
+    "department" : {
+      "id" : 1,
+      "name" : "Science"
+    }
+  }
+}
