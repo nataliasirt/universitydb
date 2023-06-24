@@ -35,11 +35,11 @@ public class GroupDAO implements IGroupDAO {
             ResultSet resultSet = statement.executeQuery();
 
             resultSet.next();
-            //Group info
+
             int groupId = resultSet.getInt("id");
             String groupCode = resultSet.getString("code");
 
-            //Group head info
+
             head.setUserId(resultSet.getInt("user_id"));
             head.setProfessorId(resultSet.getInt("head"));
             head.setName(resultSet.getString("name"));
@@ -48,7 +48,7 @@ public class GroupDAO implements IGroupDAO {
             head.setPersonalId(resultSet.getInt("personal_id"));
             head.setDegree(resultSet.getString("degree"));
 
-            //Group subject
+
             subject.setSubjectId(resultSet.getInt("subject_id"));
             subject.setName("subject_name");
 
@@ -78,11 +78,11 @@ public class GroupDAO implements IGroupDAO {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                //Group info
+
                 int groupId = resultSet.getInt("id");
                 String groupCode = resultSet.getString("code");
 
-                //Group head info
+
                 head.setUserId(resultSet.getInt("user_id"));
                 head.setProfessorId(resultSet.getInt("head"));
                 head.setName(resultSet.getString("name"));
@@ -91,7 +91,7 @@ public class GroupDAO implements IGroupDAO {
                 head.setPersonalId(resultSet.getInt("personal_id"));
                 head.setDegree(resultSet.getString("degree"));
 
-                //Group subject
+
                 subject.setSubjectId(resultSet.getInt("subject_id"));
                 subject.setName("subject_name");
 

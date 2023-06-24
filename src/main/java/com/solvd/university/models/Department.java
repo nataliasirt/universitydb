@@ -25,12 +25,6 @@ public class Department {
         this.head = head;
     }
 
-    public Department(int departmentId, String area, Professor head, List<Professor> professors) {
-        this.departmentId = departmentId;
-        this.area = area;
-        this.head = head;
-        this.professors = professors;
-    }
 
     public int getDepartmentId() {
         return departmentId;
