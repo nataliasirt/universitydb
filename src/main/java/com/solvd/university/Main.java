@@ -1,7 +1,7 @@
 package com.solvd.university;
 
 import com.solvd.university.models.Student;
-import com.solvd.university.service.StudentService;
+import com.solvd.university.service.impl.StudentService;
 import com.solvd.university.util.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,9 +17,10 @@ public class Main {
         StudentService studentService = new StudentService();
         Student student = studentService.getStudentById(1);
         LOGGER.info(student);
-
         List<Student> studentList = studentService.getAllStudents();
         LOGGER.info(studentList);
+
+
 
 
 

@@ -1,4 +1,4 @@
-package com.solvd.university.service;
+package com.solvd.university.service.impl;
 
 import com.solvd.university.dao.IStudentDAO;
 import com.solvd.university.impl.StudentDAO;
@@ -22,7 +22,7 @@ public class StudentService {
         return this.studentDAO.selectAll();
     }
 
-    public void registerStudentToDB(Student student, int id) {
+    public void registerStudentToDB(Student student) {
         if(student !=null) {
             try (SqlSession session = SqlSessionUtil.getSession().openSession();) {
                 IStudentDAO iStudentDAO = session.getMapper(IStudentDAO.class);
@@ -30,7 +30,7 @@ public class StudentService {
                 session.commit();
             }
         } else{
-            LOGGER.error("Doctor object is null.");
+            LOGGER.error("Student object is null.");
             throw new NullPointerException();
         }
 

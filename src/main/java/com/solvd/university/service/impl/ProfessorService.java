@@ -1,4 +1,4 @@
-package com.solvd.university.service;
+package com.solvd.university.service.impl;
 
 import com.solvd.university.impl.ProfessorDAO;
 import com.solvd.university.models.Professor;
