@@ -1,6 +1,7 @@
 package com.solvd.university;
 
 import com.solvd.university.models.Student;
+import com.solvd.university.service.impl.CareerService;
 import com.solvd.university.service.impl.StudentService;
 import com.solvd.university.util.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -14,15 +15,12 @@ public class Main {
 
 
     public static void main(String[] args) {
+        CareerService careerService = new CareerService();
         StudentService studentService = new StudentService();
         Student student = studentService.getStudentById(1);
         LOGGER.info(student);
         List<Student> studentList = studentService.getAllStudents();
         LOGGER.info(studentList);
-
-
-
-
 
 
 

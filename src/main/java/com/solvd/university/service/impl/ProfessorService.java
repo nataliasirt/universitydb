@@ -14,7 +14,7 @@ public class ProfessorService {
     private final ProfessorDAO professorDAO = new ProfessorDAO();
 
     public Professor getProfessorById(int id) {
-        return this.professorDAO.select(id);
+        return this.professorDAO.getById(id);
     }
 
     public List<Professor> getAllProfessors() {

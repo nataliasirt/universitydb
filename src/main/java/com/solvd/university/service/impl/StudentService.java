@@ -15,7 +15,7 @@ public class StudentService {
     private final IStudentDAO studentDAO = new StudentDAO();
 
     public Student getStudentById(int id) {
-        return this.studentDAO.select(id);
+        return this.studentDAO.getById(id);
     }
 
     public List<Student> getAllStudents() {

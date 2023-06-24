@@ -18,7 +18,7 @@ public class ExamDAO implements IExamDAO {
     Connection connection = connectionPool.getConnection();
 
     @Override
-    public Exam select(int id) {
+    public Exam getById(int id) {
         String query = "SELECT e.id, e.mark, e.student_id, e.subject_id, s.name FROM exams e JOIN subjects s on e.subject_id = s.id WHERE id = " + id;
         Exam exam;
         Subject subject = new Subject();

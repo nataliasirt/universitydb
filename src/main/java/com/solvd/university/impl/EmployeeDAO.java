@@ -17,7 +17,7 @@ public class EmployeeDAO implements IEmployeeDAO {
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
     Connection connection = connectionPool.getConnection();
     @Override
-    public Employee select(int id) {
+    public Employee getById(int id) {
         String query = "SELECT e.user_id, e.id, u.name, u.surname, u.email, u.personal_id, e.position FROM users u JOIN employees e on u.id = e.user_id and e.id = " + id;
         Employee employee;
 

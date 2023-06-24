@@ -13,7 +13,7 @@ public class CareerService implements ICareerService {
     private final static Logger LOGGER = LogManager.getLogger(CareerService.class);
 
     @Override
-    public void saveCareerServiceToDB(Career career) {
+    public void saveCareerToDB(Career career) {
         if(career != null ) {
             ICareerDAO careerDAO = new CareerDAO();
             careerDAO.insert(career);
@@ -32,8 +32,10 @@ public class CareerService implements ICareerService {
             throw new NullPointerException();
         }
     }
-
-
-
-
-}
+    public void getCareerInDB(int id) {
+        if (id >= 1) {
+            ICareerDAO careerDAO = new CareerDAO();
+            Career career = careerDAO.getById(id);
+            IStudentDAO studentDAO = new StudentDAO();
+        }
+    }}

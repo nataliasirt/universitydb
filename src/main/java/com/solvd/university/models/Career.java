@@ -71,17 +71,6 @@ public class Career {
             this.students = students;
         }
 
-        @Override
-        public String toString() {
-            return "Career{" +
-                    "careerId=" + careerId +
-                    ", title='" + title + '\'' +
-                    ", duration=" + duration +
-                    ", cost=" + cost +
-                    ", subjects=" + subjects +
-                    ", students=" + students +
-                    '}';
-        }
     }
 
 
