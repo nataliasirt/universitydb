@@ -15,10 +15,17 @@ public class Main {
 
     public static void main(String[] args) {
         StudentService studentService = new StudentService();
-        Student studentOne = studentService.getStudentById(1);
-        LOGGER.info(studentOne);
+        Student student = studentService.getStudentById(1);
+        LOGGER.info(student);
+
         List<Student> studentList = studentService.getAllStudents();
         LOGGER.info(studentList);
+
+
+
+
+
+
 
 
     }

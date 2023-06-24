@@ -1,4 +1,4 @@
-package com.solvd.university.jdbc;
+package com.solvd.university.impl;
 
 
 import com.solvd.university.dao.IGroupDAO;
@@ -18,6 +18,7 @@ import java.util.List;
 
 public class GroupDAO implements IGroupDAO {
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
+    Connection connection = connectionPool.getConnection();
     @Override
     public Group select(int id) {
         String query = "SELECT g.id, g.code, p.user_id, g.head, u.name, u.surname, u.email, u.personal_id, p.degree, g.subject_id, s.name as subject_name FROM group g " +
@@ -56,6 +57,8 @@ public class GroupDAO implements IGroupDAO {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
         return group;
     }
@@ -100,6 +103,8 @@ public class GroupDAO implements IGroupDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
         return groups;
     }
@@ -117,6 +122,8 @@ public class GroupDAO implements IGroupDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
     }
 
@@ -149,6 +156,8 @@ public class GroupDAO implements IGroupDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
     }
 
@@ -178,6 +187,8 @@ public class GroupDAO implements IGroupDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
         return students;
     }

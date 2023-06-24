@@ -1,4 +1,4 @@
-package com.solvd.university.jdbc;
+package com.solvd.university.impl;
 import com.solvd.university.dao.IStudentDAO;
 import com.solvd.university.models.Student;
 import com.solvd.university.util.ConnectionPool;
@@ -14,6 +14,8 @@ import java.util.List;
 
 public class StudentDAO implements IStudentDAO {
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
+    Connection connection = connectionPool.getConnection();
+
     @Override
     public Student select(int id) {
         String query = "SELECT s.user_id, s.id, u.name, u.surname, u.email, u.personal_id, s.enrollment FROM users u JOIN students s on u.id = s.user_id and s.id = " + id;
@@ -37,6 +39,8 @@ public class StudentDAO implements IStudentDAO {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
         return student;
     }
@@ -66,6 +70,8 @@ public class StudentDAO implements IStudentDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
         return students;
     }
@@ -82,6 +88,8 @@ public class StudentDAO implements IStudentDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
     }
 
@@ -103,6 +111,8 @@ public class StudentDAO implements IStudentDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
     }
 
@@ -118,6 +128,8 @@ public class StudentDAO implements IStudentDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
     }
 }

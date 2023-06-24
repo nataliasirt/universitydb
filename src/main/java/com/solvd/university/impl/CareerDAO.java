@@ -1,4 +1,4 @@
-package com.solvd.university.jdbc;
+package com.solvd.university.impl;
 
 import com.solvd.university.dao.ICareerDAO;
 import com.solvd.university.models.Career;
@@ -15,6 +15,8 @@ import java.util.List;
 
 public class CareerDAO implements ICareerDAO {
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
+    Connection connection = connectionPool.getConnection();
+
     @Override
     public Career select(int id) {
         String query = "SELECT id, title, duration, cost FROM careers WHERE id = " + id;
@@ -35,6 +37,8 @@ public class CareerDAO implements ICareerDAO {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
         return career;
     }
@@ -61,6 +65,8 @@ public class CareerDAO implements ICareerDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
         return careers;
     }
@@ -79,8 +85,10 @@ public class CareerDAO implements ICareerDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
-    }
+        }
 
     @Override
     public void update(Career career, int id) {
@@ -97,8 +105,10 @@ public class CareerDAO implements ICareerDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
-    }
+        }
 
     @Override
     public void delete(Career career) {
@@ -112,8 +122,10 @@ public class CareerDAO implements ICareerDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
-    }
+        }
 
     public List<Subject> selectCareerSubjects(Career career) {
         String query = "SELECT s.id, s.name FROM subjects s JOIN career_subject cs on cs.subject_id = s.id and cs.career_id = " + career.getCareerId();
@@ -134,8 +146,9 @@ public class CareerDAO implements ICareerDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
-
         return subjects;
     }
 
@@ -165,6 +178,8 @@ public class CareerDAO implements ICareerDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
         return students;
     }

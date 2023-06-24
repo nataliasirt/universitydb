@@ -1,6 +1,6 @@
 package com.solvd.university.service;
 
-import com.solvd.university.jdbc.ProfessorDAO;
+import com.solvd.university.impl.ProfessorDAO;
 import com.solvd.university.models.Professor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

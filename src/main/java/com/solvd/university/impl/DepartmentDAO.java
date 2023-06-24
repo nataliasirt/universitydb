@@ -1,4 +1,4 @@
-package com.solvd.university.jdbc;
+package com.solvd.university.impl;
 
 import com.solvd.university.dao.IDepartmentDAO;
 import com.solvd.university.models.Department;
@@ -15,6 +15,7 @@ import java.util.List;
 
 public class DepartmentDAO implements IDepartmentDAO {
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
+    Connection connection = connectionPool.getConnection();
     @Override
     public Department select(int id) {
         String query = "SELECT d.id, d.area, p.user_id, d.head, u.name, u.surname, u.email, u.personal_id, p.degree FROM departments d " +
@@ -46,6 +47,8 @@ public class DepartmentDAO implements IDepartmentDAO {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
         return department;
     }
@@ -83,6 +86,8 @@ public class DepartmentDAO implements IDepartmentDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
         return departments;
     }
@@ -99,8 +104,10 @@ public class DepartmentDAO implements IDepartmentDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
-    }
+        }
 
     @Override
     public void update(Department department, int id) {
@@ -115,8 +122,10 @@ public class DepartmentDAO implements IDepartmentDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
-    }
+        }
 
     @Override
     public void delete(Department department) {
@@ -130,8 +139,10 @@ public class DepartmentDAO implements IDepartmentDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
-    }
+        }
 
     public List<Professor> selectDepartmentProfessors(Department department) {
         String query = "SELECT p.user_id, p.id, u.name, u.surname, u.email, u.personal_id, p.degree FROM users u " +
@@ -160,9 +171,9 @@ public class DepartmentDAO implements IDepartmentDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
         return professors;
     }
-
-
 }

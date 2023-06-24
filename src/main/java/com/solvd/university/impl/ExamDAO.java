@@ -1,4 +1,4 @@
-package com.solvd.university.jdbc;
+package com.solvd.university.impl;
 
 import com.solvd.university.dao.IExamDAO;
 import com.solvd.university.models.Exam;
@@ -15,6 +15,7 @@ import java.util.List;
 
 public class ExamDAO implements IExamDAO {
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
+    Connection connection = connectionPool.getConnection();
 
     @Override
     public Exam select(int id) {
@@ -38,6 +39,8 @@ public class ExamDAO implements IExamDAO {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
         return exam;
     }
@@ -66,6 +69,8 @@ public class ExamDAO implements IExamDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
         return exams;
     }
@@ -83,6 +88,8 @@ public class ExamDAO implements IExamDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
     }
 
@@ -100,6 +107,8 @@ public class ExamDAO implements IExamDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
     }
 
@@ -115,6 +124,8 @@ public class ExamDAO implements IExamDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
     }
 }

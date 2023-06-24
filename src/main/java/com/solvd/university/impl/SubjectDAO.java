@@ -1,4 +1,4 @@
-package com.solvd.university.jdbc;
+package com.solvd.university.impl;
 
 import com.solvd.university.dao.ISubjectDAO;
 import com.solvd.university.models.Subject;
@@ -13,6 +13,8 @@ import java.util.List;
 
 public class SubjectDAO implements ISubjectDAO {
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
+    Connection connection = connectionPool.getConnection();
+
     @Override
     public Subject select(int id) {
         String query = "SELECT id, name FROM subjects WHERE id = " + id;
@@ -31,6 +33,8 @@ public class SubjectDAO implements ISubjectDAO {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
         return subject;
     }
@@ -55,6 +59,8 @@ public class SubjectDAO implements ISubjectDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
         return subjects;
     }
@@ -71,6 +77,8 @@ public class SubjectDAO implements ISubjectDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
     }
 
@@ -86,6 +94,8 @@ public class SubjectDAO implements ISubjectDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
     }
 
@@ -101,6 +111,8 @@ public class SubjectDAO implements ISubjectDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
     }
 }

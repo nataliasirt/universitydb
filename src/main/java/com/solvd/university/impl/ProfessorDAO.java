@@ -1,4 +1,4 @@
-package com.solvd.university.jdbc;
+package com.solvd.university.impl;
 
 import com.solvd.university.dao.IProfessorDAO;
 import com.solvd.university.models.Professor;
@@ -12,6 +12,8 @@ import java.util.List;
 
 public class ProfessorDAO implements IProfessorDAO {
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
+    Connection connection = connectionPool.getConnection();
+
     @Override
     public Professor select(int id) {
         String query = "SELECT p.user_id, p.id, u.name, u.surname, u.email, u.personal_id, p.degree FROM users u JOIN professors p on u.id = p.user_id and p.id = " + id;
@@ -35,6 +37,8 @@ public class ProfessorDAO implements IProfessorDAO {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
         return professor;
     }
@@ -64,6 +68,8 @@ public class ProfessorDAO implements IProfessorDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
         return professors;
     }
@@ -81,6 +87,8 @@ public class ProfessorDAO implements IProfessorDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
     }
 
@@ -102,6 +110,8 @@ public class ProfessorDAO implements IProfessorDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
     }
 
@@ -117,6 +127,8 @@ public class ProfessorDAO implements IProfessorDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connectionPool.releaseConnection(connection);
         }
     }
 }

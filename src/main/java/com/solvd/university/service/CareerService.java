@@ -1,6 +1,6 @@
 package com.solvd.university.service;
 
-import com.solvd.university.jdbc.CareerDAO;
+import com.solvd.university.impl.CareerDAO;
 import com.solvd.university.models.Career;
 import com.solvd.university.models.Student;
 import com.solvd.university.models.Subject;
