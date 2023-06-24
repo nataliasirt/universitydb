@@ -1,33 +1,21 @@
 package com.solvd.university.models;
 
 public class Exam {
-    private int examID;
-    private String examName;
+    private int examId;
     private double mark;
-    private int studentID;
-     public Exam(){}
+    private Subject subject;
+    private int student_id;
 
-    public Exam(int examID, String examName, double mark, int studentID) {
-        this.examID = examID;
-        this.examName = examName;
+    public Exam() {};
+
+    public Exam(int examId, double mark, Subject subject, int student_id) {
+        this.examId = examId;
         this.mark = mark;
-        this.studentID = studentID;
+        this.student_id = student_id;
     }
 
-    public int getExamID() {
-        return examID;
-    }
-
-    public void setExamID(int examID) {
-        this.examID = examID;
-    }
-
-    public String getExamName() {
-        return examName;
-    }
-
-    public void setExamName(String examName) {
-        this.examName = examName;
+    public int getExamId() {
+        return examId;
     }
 
     public double getMark() {
@@ -38,21 +26,29 @@ public class Exam {
         this.mark = mark;
     }
 
-    public int getStudentID() {
-        return studentID;
+
+    public int getStudent_id() {
+        return student_id;
     }
 
-    public void setStudentID(int studentID) {
-        this.studentID = studentID;
+    public void setStudent_id(int student_id) {
+        this.student_id = student_id;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
     @Override
     public String toString() {
         return "Exam{" +
-                "examID=" + examID +
-                ", examName='" + examName + '\'' +
+                "examId=" + examId +
                 ", mark=" + mark +
-                ", studentID=" + studentID +
                 '}';
     }
+
 }

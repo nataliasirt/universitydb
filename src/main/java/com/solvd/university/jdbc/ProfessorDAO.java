@@ -69,16 +69,6 @@ public class ProfessorDAO implements IProfessorDAO {
     }
 
     @Override
-    public Professor get(int id) {
-        return null;
-    }
-
-    @Override
-    public List<Professor> getAll() {
-        return null;
-    }
-
-    @Override
     public void insert(Professor professor) {
         String query = "INSERT into professors (user_id, degree) VALUES (?, ?)";
 
