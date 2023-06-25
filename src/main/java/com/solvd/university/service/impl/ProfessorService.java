@@ -1,20 +1,18 @@
 package com.solvd.university.service.impl;
 
+
 import com.solvd.university.impl.ProfessorDAO;
 import com.solvd.university.models.Professor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProfessorService {
-    private final static Logger LOGGER = LogManager.getLogger(ProfessorService.class);
     private final ProfessorDAO professorDAO = new ProfessorDAO();
 
     public Professor getProfessorById(int id) {
-        return this.professorDAO.getById(id);
+        return this.professorDAO.select(id);
     }
 
     public List<Professor> getAllProfessors() {
@@ -39,6 +37,3 @@ public class ProfessorService {
         this.professorDAO.delete(professor);
     }
 }
-
-
-
