@@ -34,7 +34,6 @@ public class CareerDAO implements ICareerDAO {
             double cost = resultSet.getDouble("cost");
 
             career = new Career(careerId, title, duration, cost);
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }finally {

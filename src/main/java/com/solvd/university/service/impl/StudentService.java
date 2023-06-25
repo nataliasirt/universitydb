@@ -1,40 +1,60 @@
 package com.solvd.university.service.impl;
 
 import com.solvd.university.dao.IStudentDAO;
-import com.solvd.university.impl.StudentDAO;
+import com.solvd.university.designpatterns.DaoFactory;
+import com.solvd.university.impl.ExamDAO;
+import com.solvd.university.models.Exam;
 import com.solvd.university.models.Student;
-import com.solvd.university.util.SqlSessionUtil;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StudentService {
-    private final static Logger LOGGER = LogManager.getLogger(ProfessorService.class);
-    private final IStudentDAO studentDAO = new StudentDAO();
+    private final IStudentDAO studentDAO = (IStudentDAO) DaoFactory.getDao("student");
 
     public Student getStudentById(int id) {
-        return this.studentDAO.getById(id);
+        return this.studentDAO.select(id);
+    }
+
+    public Student getFullStudentInfoById(int id) {
+        ExamDAO examDAO = new ExamDAO();
+
+        Student student = this.studentDAO.select(id);
+        student.setExams(retrieveExams(student));
+        return student;
     }
 
     public List<Student> getAllStudents() {
         return this.studentDAO.selectAll();
     }
 
-    public void registerStudentToDB(Student student) {
-        if(student !=null) {
-            try (SqlSession session = SqlSessionUtil.getSession().openSession();) {
-                IStudentDAO iStudentDAO = session.getMapper(IStudentDAO.class);
-                studentDAO.insert(student);
-                session.commit();
-            }
-        } else{
-            LOGGER.error("Student object is null.");
-            throw new NullPointerException();
-        }
+    public List<Student> getStudentsAlphabetically() {
+        return this.studentDAO.selectAll().stream()
+                .sorted(Comparator.comparing(Student::getName))
+                .collect(Collectors.toList());
+    }
 
+    public void registerStudent(Student student) {
+        this.studentDAO.insert(student);
+    }
+
+    public void updateStudentById(Student student, int id) {
+        this.studentDAO.update(student, id);
+    }
+
+    public void deleteStudent(Student student) {
+        this.studentDAO.delete(student);
+    }
+
+    public List<Exam> retrieveExams(Student student) {
+        ExamDAO examDAO = new ExamDAO();
+
+        List<Exam> exams = examDAO.selectAll().stream()
+                .filter( exam -> exam.getStudent_id() == student.getStudentId())
+                .collect(Collectors.toList());
+
+        return exams;
     }
 
 }
-
