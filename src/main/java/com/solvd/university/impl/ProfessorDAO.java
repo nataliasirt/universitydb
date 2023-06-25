@@ -15,7 +15,7 @@ public class ProfessorDAO implements IProfessorDAO {
     Connection connection = connectionPool.getConnection();
 
     @Override
-    public Professor getById(int id) {
+    public Professor select(int id) {
         String query = "SELECT p.user_id, p.id, u.name, u.surname, u.email, u.personal_id, p.degree FROM users u JOIN professors p on u.id = p.user_id and p.id = " + id;
         Professor professor;
 

@@ -16,7 +16,7 @@ public class UserDAO implements IUserDAO {
     Connection connection = connectionPool.getConnection();
 
     @Override
-    public User getById(int id) {
+    public User select(int id) {
         String query = "SELECT id, name, surname, email, personal_id FROM users WHERE id = "  + id;
         User user;
 

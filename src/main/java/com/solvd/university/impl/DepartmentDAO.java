@@ -17,7 +17,7 @@ public class DepartmentDAO implements IDepartmentDAO {
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
     Connection connection = connectionPool.getConnection();
     @Override
-    public Department getById(int id) {
+    public Department select(int id) {
         String query = "SELECT d.id, d.area, p.user_id, d.head, u.name, u.surname, u.email, u.personal_id, p.degree FROM departments d " +
                 "JOIN professors p on d.head = p.id " +
                 "JOIN users u on p.user_id = u.id WHERE d.id = " + id;

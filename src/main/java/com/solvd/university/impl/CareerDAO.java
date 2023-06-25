@@ -18,7 +18,7 @@ public class CareerDAO implements ICareerDAO {
     Connection connection = connectionPool.getConnection();
 
     @Override
-    public Career getById(int id) {
+    public Career select(int id) {
         String query = "SELECT id, title, duration, cost FROM careers WHERE id = " + id;
         Career career;
 

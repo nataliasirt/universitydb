@@ -17,7 +17,7 @@ public class StudentDAO implements IStudentDAO {
     Connection connection = connectionPool.getConnection();
 
     @Override
-    public Student getById(int id) {
+    public Student select(int id) {
         String query = "SELECT s.user_id, s.id, u.name, u.surname, u.email, u.personal_id, s.enrollment FROM users u JOIN students s on u.id = s.user_id and s.id = " + id;
         Student student;
 

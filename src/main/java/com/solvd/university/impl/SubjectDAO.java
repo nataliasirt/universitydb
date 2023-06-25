@@ -16,7 +16,7 @@ public class SubjectDAO implements ISubjectDAO {
     Connection connection = connectionPool.getConnection();
 
     @Override
-    public Subject getById(int id) {
+    public Subject select(int id) {
         String query = "SELECT id, name FROM subjects WHERE id = " + id;
         Subject subject;
 

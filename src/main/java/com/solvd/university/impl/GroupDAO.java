@@ -20,7 +20,7 @@ public class GroupDAO implements IGroupDAO {
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
     Connection connection = connectionPool.getConnection();
     @Override
-    public Group getById(int id) {
+    public Group select(int id) {
         String query = "SELECT g.id, g.code, p.user_id, g.head, u.name, u.surname, u.email, u.personal_id, p.degree, g.subject_id, s.name as subject_name FROM group g " +
                 "JOIN professors p on g.head = p.id " +
                 "JOIN users u on p.user_id = u.id " +
