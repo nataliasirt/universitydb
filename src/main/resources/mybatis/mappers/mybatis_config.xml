@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-    <properties resource="database.properties"/>
+    <properties resource="mybatis/mappers/mybatis_config.xml"/>
 
     <environments default="development">
         <environment id="development">
@@ -18,5 +18,7 @@
     </environments>
     <mappers>
         <mapper resource="mybatis/mappers/studentMapper.xml"/>
+        <mapper resource="mybatis/mappers/professorMapper.xml"/>
+        <mapper resource="mybatis/mappers/userMapper.xml"/>
     </mappers>
 </configuration>

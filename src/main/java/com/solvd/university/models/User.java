@@ -1,20 +1,21 @@
 package com.solvd.university.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class User {
-
+    @JsonProperty
     private int userId;
-
+    @JsonProperty
     private String name;
-
+    @JsonProperty
     private String surname;
-
+    @JsonProperty
     private int personalId;
-
+    @JsonProperty
     private String email;
     public User (){
 

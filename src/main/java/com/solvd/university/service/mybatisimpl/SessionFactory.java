@@ -12,7 +12,7 @@ public class SessionFactory {
     private SqlSessionFactory factory;
 
     private SessionFactory(){
-        String resource = "mybatis/mybatis-config.xml";
+        String resource = "mybatis/mappers/mybatis_config.xml";
         Reader reader = null;
 
         try {

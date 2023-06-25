@@ -1,5 +1,5 @@
 {
-  "groupId" : 87,
+  "groupId" : 88,
   "groupCode" : "AH93K7",
   "head" : {
     "userId": "99",
@@ -7,7 +7,7 @@
     "surname" : "ford",
     "personalId" : 62812,
     "email" : "ford@gmail.com",
-    "professorId" : 773,
+    "professorId" : 774,
     "degree" : "Engineer",
     "workedHours" : null
   },

@@ -1,8 +1,8 @@
 package com.solvd.university.service.impl;
 
 import com.solvd.university.dao.IStudentDAO;
-import com.solvd.university.designpatterns.DaoFactory;
 import com.solvd.university.impl.ExamDAO;
+import com.solvd.university.impl.StudentDAO;
 import com.solvd.university.models.Exam;
 import com.solvd.university.models.Student;
 
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class StudentService {
-    private final IStudentDAO studentDAO = (IStudentDAO) DaoFactory.getDao("student");
+    private final IStudentDAO studentDAO = new StudentDAO();
 
     public Student getStudentById(int id) {
         return this.studentDAO.select(id);

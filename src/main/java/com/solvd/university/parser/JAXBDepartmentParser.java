@@ -1,8 +1,6 @@
 package com.solvd.university.parser;
 
 import com.solvd.university.models.Department;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -13,7 +11,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class JAXBDepartmentParser {
-    private static final Logger LOGGER = LogManager.getLogger();
 
     public static void marshallDepartment(Department department) throws JAXBException {
 
@@ -33,6 +30,7 @@ public class JAXBDepartmentParser {
     public static void main(String[] args) throws JAXBException, IOException {
 
         Department department = JAXBDepartmentParser.unmarshallDepartment(PATH);
+
 
         System.out.println(department);
 

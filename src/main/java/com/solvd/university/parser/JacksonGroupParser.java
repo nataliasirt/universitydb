@@ -8,8 +8,8 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 
-public class JacksonGroup {
-    private static final Logger LOGGER = LogManager.getLogger(JacksonGroup.class);
+public class JacksonGroupParser {
+    private static final Logger LOGGER = LogManager.getLogger(JacksonGroupParser.class);
     private static ObjectMapper objectMapper = new ObjectMapper();
 
     public static void writeGroup(Group group) {

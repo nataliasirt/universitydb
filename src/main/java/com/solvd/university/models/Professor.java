@@ -1,16 +1,17 @@
 package com.solvd.university.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "professor")
 public class Professor extends User{
-
+    @JsonProperty
     private int professorId;
-
+    @JsonProperty
     private String degree;
-
+    @JsonProperty
     private WorkedHours workedHours;
 
     public Professor(){}
