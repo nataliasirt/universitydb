@@ -9,35 +9,38 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 
 public class JAXBDepartmentParser {
     private static final Logger LOGGER = LogManager.getLogger(JAXBDepartmentParser.class);
 
-    public static void marshallDepartment(Department department) throws JAXBException {
+    private static final String OUTPUT_JAXB = "jaxb/jaxboutput.xml";
 
-        JAXBContext context = JAXBContext.newInstance(Department.class);
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        marshaller.marshal(department, new File("C:\\Users\\nsirt\\IdeaProjects\\universitydb\\src\\main\\resources\\jaxb\\jaxboutput.xml"));
+
+    public void marshall(Department department) {
+        try {
+            JAXBContext context = JAXBContext.newInstance(Department.class);
+            Marshaller m = context.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            m.marshal(department, new File(OUTPUT_JAXB));
+        } catch (JAXBException e) {
+            LOGGER.info("JAXB Exception occurred during marshall" + e.getMessage());
+        }
+        LOGGER.info("Marshalling Successful");
     }
 
-    public static Department unmarshallDepartment(String path) throws JAXBException, IOException {
-        JAXBContext context = JAXBContext.newInstance(Department.class);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        return (Department) unmarshaller.unmarshal(new FileReader(path));
-    }
-    public static final String PATH = "C:\\Users\\nsirt\\IdeaProjects\\universitydb\\src\\main\\resources\\jaxb\\departmentdata.xml";
 
-    public static void main(String[] args) throws JAXBException, IOException {
-
-        Department department = JAXBDepartmentParser.unmarshallDepartment(PATH);
-
-
-        LOGGER.info(department);
-
-        JAXBDepartmentParser.marshallDepartment(department);
+    public Department unmarshall(String filePath) {
+        Unmarshaller unmarshaller = null;
+        Department department = null;
+        try {
+            JAXBContext context = JAXBContext.newInstance(Department.class);
+            unmarshaller = context.createUnmarshaller();
+            department = (Department) unmarshaller.unmarshal(new File(filePath));
+            LOGGER.info("UnMarshalling Successful");
+        } catch (JAXBException e) {
+            LOGGER.info("JAXB Exception occurred during unmarshall" + e.getMessage());
+        }
+        return department;
     }
 }
 

@@ -1,11 +1,15 @@
 package com.solvd.university.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.xml.bind.annotation.XmlElement;
 import java.util.List;
 
 public class Student extends User{
+    @XmlElement(name = "studentId")
     @JsonProperty
     private int studentId;
     @JsonProperty
+    @XmlElement(name = "enrollment")
     private int enrollment;
     @JsonProperty
     private List<Exam> exams;
