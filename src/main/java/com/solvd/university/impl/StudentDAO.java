@@ -14,15 +14,15 @@ import java.util.List;
 
 public class StudentDAO implements IStudentDAO {
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
-    Connection connection = connectionPool.getConnection();
 
     @Override
     public Student select(int id) {
         String query = "SELECT s.user_id, s.id, u.name, u.surname, u.email, u.personal_id, s.enrollment FROM users u JOIN students s on u.id = s.user_id and s.id = " + id;
         Student student;
+        Connection connection = null;
 
         try {
-            Connection connection = connectionPool.getConnection();
+            connection = connectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
 
@@ -39,8 +39,10 @@ public class StudentDAO implements IStudentDAO {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
-            connectionPool.releaseConnection(connection);
+        } finally {
+            if (connection != null) {
+                connectionPool.releaseConnection(connection);
+            }
         }
         return student;
     }
@@ -50,9 +52,10 @@ public class StudentDAO implements IStudentDAO {
         String query = "SELECT s.user_id, s.id, u.name, u.surname, u.email, u.personal_id, s.enrollment FROM users u RIGHT JOIN students s on u.id = s.user_id";
         List<Student> students = new ArrayList<>();
         Student student;
+        Connection connection = null;
 
         try {
-            Connection connection = connectionPool.getConnection();
+            connection = connectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
 
@@ -70,17 +73,21 @@ public class StudentDAO implements IStudentDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
-            connectionPool.releaseConnection(connection);
+        } finally {
+            if (connection != null) {
+                connectionPool.releaseConnection(connection);
+            }
         }
         return students;
     }
+
     @Override
     public void insert(Student student) {
         String query = "INSERT into students (user_id, enrollment) VALUES (?, ?)";
+        Connection connection = null;
 
         try {
-            Connection connection = connectionPool.getConnection();
+            connection = connectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
 
             statement.setInt(1, student.getUserId());
@@ -88,50 +95,63 @@ public class StudentDAO implements IStudentDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
-            connectionPool.releaseConnection(connection);
+        } finally {
+            if (connection != null) {
+                connectionPool.releaseConnection(connection);
+            }
         }
     }
+
 
     @Override
     public void update(Student student, int id) {
         String query = "UPDATE users u JOIN students s on u.id = s.user_id SET u.name = ?, u.surname = ?, u.email = ?, u.personal_id = ?, s.enrollment = ? WHERE u.id = ?";
+        Connection connection = null;
 
         try {
-            Connection connection = connectionPool.getConnection();
+            connection = connectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
 
-            statement.setInt(1, student.getUserId());
-            statement.setString(2, student.getName());
-            statement.setString(3, student.getSurname());
-            statement.setString(4, student.getEmail());
-            statement.setInt(5, student.getPersonalId());
-            statement.setInt(6, student.getEnrollment());
+            statement.setString(1, student.getName());
+            statement.setString(2, student.getSurname());
+            statement.setString(3, student.getEmail());
+            statement.setInt(4, student.getPersonalId());
+            statement.setInt(5, student.getEnrollment());
+            statement.setInt(6, student.getUserId());
             statement.setInt(7, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
-            connectionPool.releaseConnection(connection);
+        } finally {
+            if (connection != null) {
+                connectionPool.releaseConnection(connection);
+            }
         }
     }
+
+
 
     @Override
-    public void delete(Student student) {
-        String query = "DELETE FROM users u JOIN students s on u.id = s.user_id WHERE u.id = ?";
+        public void delete(Student student) {
+            String query = "DELETE FROM users u JOIN students s on u.id = s.user_id WHERE u.id = ?";
+            Connection connection = null;
 
-        try {
-            Connection connection = connectionPool.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
+            try {
+                connection = connectionPool.getConnection();
+                PreparedStatement statement = connection.prepareStatement(query);
 
-            statement.setInt(1, student.getUserId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }finally {
-            connectionPool.releaseConnection(connection);
+                statement.setInt(1, student.getUserId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } finally {
+                if (connection != null) {
+                    connectionPool.releaseConnection(connection);
+                }
+            }
         }
+
     }
-}
+
 
 

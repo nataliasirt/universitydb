@@ -13,16 +13,17 @@ import java.util.List;
 
 public class UserDAO implements IUserDAO {
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
-    Connection connection = connectionPool.getConnection();
+
 
     @Override
     public User select(int id) {
-        String query = "SELECT id, name, surname, email, personal_id FROM users WHERE id = "  + id;
+        String query = "SELECT id, name, surname, email, personal_id FROM users WHERE id = ?";
         User user;
-
+        Connection connection = null;
         try {
-            Connection connection = connectionPool.getConnection();
+            connection = connectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
 
             resultSet.next();
@@ -36,20 +37,22 @@ public class UserDAO implements IUserDAO {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
-            connectionPool.releaseConnection(connection);
+        } finally {
+            if (connection != null) {
+                connectionPool.releaseConnection(connection);
+            }
         }
         return user;
     }
-
     @Override
     public List<User> selectAll() {
         String query = "SELECT id, name, surname, email, personal_id FROM users";
         List<User> users = new ArrayList<>();
         User user;
+        Connection connection = null;
 
         try {
-            Connection connection = connectionPool.getConnection();
+            connection = connectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
 
@@ -65,8 +68,10 @@ public class UserDAO implements IUserDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
-            connectionPool.releaseConnection(connection);
+        } finally {
+            if (connection != null) {
+                connectionPool.releaseConnection(connection);
+            }
         }
         return users;
     }
@@ -74,11 +79,10 @@ public class UserDAO implements IUserDAO {
     @Override
     public void insert(User user) {
         String query = "INSERT into users (name, surname, email, personal_id) VALUES (?, ?, ?, ?)";
-
+        Connection connection = null;
         try {
-            Connection connection = connectionPool.getConnection();
+            connection = connectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
-
             statement.setString(1, user.getName());
             statement.setString(2, user.getSurname());
             statement.setString(3, user.getEmail());
@@ -86,46 +90,52 @@ public class UserDAO implements IUserDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
-            connectionPool.releaseConnection(connection);
+        } finally {
+            if (connection != null) {
+                connectionPool.releaseConnection(connection);
+            }
         }
     }
 
     @Override
     public void update(User user, int id) {
         String query = "UPDATE users SET name = ?, surname = ?, email = ?, personal_id = ? WHERE id = ?";
+        Connection connection = null;
 
         try {
-            Connection connection = connectionPool.getConnection();
+            connection = connectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
-
             statement.setString(1, user.getName());
             statement.setString(2, user.getSurname());
             statement.setString(3, user.getEmail());
-            statement.setInt(4, user.getPersonalId() );
+            statement.setInt(4, user.getPersonalId());
             statement.setInt(5, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
-            connectionPool.releaseConnection(connection);
+        } finally {
+            if (connection != null) {
+                connectionPool.releaseConnection(connection);
+            }
         }
     }
 
     @Override
     public void delete(User user) {
-        String query = "DELETE FROM users WHERE u.id = ?";
-
+        String query = "DELETE FROM users WHERE id = ?";
+        Connection connection = null;
         try {
-            Connection connection = connectionPool.getConnection();
+            connection = connectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
 
             statement.setInt(1, user.getUserId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
-            connectionPool.releaseConnection(connection);
+        } finally {
+            if (connection != null) {
+                connectionPool.releaseConnection(connection);
+            }
         }
-    }
-}
+    }}
+
