@@ -1,4 +1,4 @@
-package com.solvd.university.service.mybatisimpl;
+package com.solvd.university.service;
 
 import com.solvd.university.models.Professor;
 
@@ -9,6 +9,10 @@ public interface IProfessorService{
     Professor getProfessorById();
 
     List<Professor>getAllProfessorsAlphabetically();
+
+
+
+
 
 
 }

@@ -6,6 +6,9 @@ import com.solvd.university.models.Student;
 import com.solvd.university.models.Subject;
 import com.solvd.university.service.GroupService;
 import com.solvd.university.service.impl.*;
+import com.solvd.university.service.impl.ProfessorService;
+import com.solvd.university.service.impl.StudentService;
+import com.solvd.university.service.impl.SubjectService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,17 +24,17 @@ public class Main {
     private static final ParseAndValidationService parseAndValidationService = new ParseAndValidationService();
 
     public static void main(String[] args) {
-        //Select a student
+        //Select student by ID
         StudentService studentService = new StudentService();
-        Student studentOne = studentService.getStudentById(1);
-        LOGGER.info(studentOne);
+        Student student = studentService.getStudentById(1);
+        LOGGER.info(student);
 
         //Select all students
         List<Student> studentList = studentService.getAllStudents();
         LOGGER.info(studentList);
 
-        Student studentThree = studentService.getFullStudentInfoById(1);
-        LOGGER.info(studentThree);
+        Student student1 = studentService.getFullStudentInfoById(1);
+        LOGGER.info(student1);
 
         //Select a professor
         ProfessorService professorService = new ProfessorService();
@@ -57,7 +60,7 @@ public class Main {
         LOGGER.info(subjectService.getAllSubjects());
 
         //Parse to object - DOM
-        Student student = parseAndValidationService.parseStudent(STUDENT_FILE_PATH);
+        Student student2 = parseAndValidationService.parseStudent(STUDENT_FILE_PATH);
 
         //Validate XML
         if(parseAndValidationService.validateXML(STUDENT_FILE_PATH,STUDENT_XSD_PATH)) {
@@ -73,11 +76,11 @@ public class Main {
         JsonService jsonService = new JsonService();
         File jsonFile = new File("src/main/resources/jackson/groupdata.json");
 
-        //Serialize JSON
+        //Serialize with JSON
         GroupService groupService = new GroupService();
         jsonService.serializeObjectToJson(groupService, jsonFile);
 
-        //de-serializing a JSON into an object
+        //de-serializing with JSON into an object
         GroupService groupServiceObj = jsonService.deserializeJsonToObject(GroupService.class, jsonFile);
         LOGGER.info(groupServiceObj);
         }

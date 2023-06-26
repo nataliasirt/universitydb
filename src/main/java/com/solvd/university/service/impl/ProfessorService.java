@@ -4,23 +4,29 @@ package com.solvd.university.service.impl;
 import com.solvd.university.dao.IProfessorDAO;
 import com.solvd.university.dao.impl.ProfessorDAO;
 import com.solvd.university.models.Professor;
-import com.solvd.university.service.mybatisimpl.IProfessorService;
+import com.solvd.university.service.IProfessorService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProfessorService implements IProfessorService {
+    private final static Logger LOGGER = LogManager.getLogger(StudentService.class);
     private final IProfessorDAO professorDAO = new ProfessorDAO();
-
+    @Override
     public Professor getProfessorById(int id) {
-        return this.professorDAO.select(id);
+        if (id > 0) {
+            return professorDAO.select(id);
+        } else LOGGER.warn("Invalid ID provided! ");
+        return null;
     }
-
+    @Override
     public List<Professor> getAllProfessors() {
         return this.professorDAO.selectAll();
     }
-
+    @Override
     public List<Professor> getAllProfessorsAlphabetically() {
         return this.professorDAO.selectAll().stream()
                 .sorted(Comparator.comparing(Professor::getName))
@@ -39,8 +45,4 @@ public class ProfessorService implements IProfessorService {
         this.professorDAO.delete(professor);
     }
 
-    @Override
-    public Professor getProfessorById() {
-        return null;
-    }
 }

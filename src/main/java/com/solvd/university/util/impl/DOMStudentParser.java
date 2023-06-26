@@ -1,4 +1,4 @@
-package com.solvd.university.service.impl;
+package com.solvd.university.util.impl;
 
 import com.solvd.university.Main;
 import com.solvd.university.models.Student;

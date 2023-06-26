@@ -5,17 +5,24 @@ import com.solvd.university.dao.impl.ExamDAO;
 import com.solvd.university.dao.impl.StudentDAO;
 import com.solvd.university.models.Exam;
 import com.solvd.university.models.Student;
-import com.solvd.university.service.mybatisimpl.IStudentService;
+import com.solvd.university.service.IStudentService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class StudentService implements IStudentService {
+    private final static Logger LOGGER = LogManager.getLogger(StudentService.class);
+
     private final IStudentDAO studentDAO = new StudentDAO();
 
     public Student getStudentById(int id) {
-        return this.studentDAO.select(id);
+        if (id > 0) {
+            return studentDAO.select(id);
+        } else LOGGER.warn("Invalid ID provided! ");
+        return null;
     }
 
     public Student getFullStudentInfoById(int id) {

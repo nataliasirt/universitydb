@@ -9,11 +9,11 @@
         <result column="exams" property="exams"/>
     </resultMap>
 
-    <select id="select" parameterType="int" resultMap="studentResultMap">
+    <select id="getById" parameterType="int" resultMap="studentResultMap">
         SELECT s.user_id, s.id, u.name, u.surname, u.email, u.personal_id, s.enrollment FROM users u JOIN students s on u.id = s.user_id and s.id = #{id}
     </select>
 
-    <select id="selectAll" resultMap="studentResultMap">
+    <select id="getAll" resultMap="studentResultMap">
         SELECT s.user_id, s.id, u.name, u.surname, u.email, u.personal_id, s.enrollment FROM users u RIGHT JOIN students s on u.id = s.user_id
     </select>
 
