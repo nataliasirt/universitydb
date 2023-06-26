@@ -2,14 +2,15 @@ package com.solvd.university.service.impl;
 
 
 import com.solvd.university.dao.IProfessorDAO;
-import com.solvd.university.impl.ProfessorDAO;
+import com.solvd.university.dao.impl.ProfessorDAO;
 import com.solvd.university.models.Professor;
+import com.solvd.university.service.mybatisimpl.IProfessorService;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProfessorService implements IProfessorService{
+public class ProfessorService implements IProfessorService {
     private final IProfessorDAO professorDAO = new ProfessorDAO();
 
     public Professor getProfessorById(int id) {

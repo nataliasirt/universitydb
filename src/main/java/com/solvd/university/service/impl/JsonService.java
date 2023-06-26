@@ -1,6 +1,6 @@
 package com.solvd.university.service.impl;
 
-import com.solvd.university.util.JSONParseService;
+import com.solvd.university.service.mybatisimpl.JSONParseService;
 
 import java.io.File;
 

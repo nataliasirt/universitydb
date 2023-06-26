@@ -5,6 +5,7 @@ import com.solvd.university.dao.IUserDAO;
 import com.solvd.university.models.Professor;
 import com.solvd.university.models.Student;
 import com.solvd.university.models.User;
+import com.solvd.university.util.SessionFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

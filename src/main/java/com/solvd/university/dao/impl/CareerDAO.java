@@ -1,4 +1,4 @@
-package com.solvd.university.impl;
+package com.solvd.university.dao.impl;
 
 import com.solvd.university.dao.ICareerDAO;
 import com.solvd.university.models.Career;

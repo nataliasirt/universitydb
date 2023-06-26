@@ -5,12 +5,7 @@ import com.solvd.university.models.Professor;
 import com.solvd.university.models.Student;
 import com.solvd.university.models.Subject;
 import com.solvd.university.service.GroupService;
-import com.solvd.university.service.impl.JsonService;
-import com.solvd.university.service.impl.ProfessorService;
-import com.solvd.university.service.impl.StudentService;
-import com.solvd.university.service.impl.SubjectService;
-import com.solvd.university.util.ConnectionPool;
-import com.solvd.university.util.ParseAndValidationService;
+import com.solvd.university.service.impl.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,12 +13,12 @@ import java.io.File;
 import java.util.List;
 
 public class Main {
-    private static final String STUDENT_FILE_PATH = "xml/student.xml";
-    private static final String STUDENT_XSD_PATH = "xml/student.xsd";
-    private static final String INPUT_JAXB = "src/main/resources/xml/input_jaxb.xml";
     private final static Logger LOGGER = LogManager.getLogger(Main.class);
+    private static final String STUDENT_FILE_PATH = "src/main/resources/xml/student.xml";
+    private static final String STUDENT_XSD_PATH = "src/main/resources/xml/student.xsd";
+    private static final String INPUT_JAXB = "src/main/resources/xml/input_jaxb.xml";
+
     private static final ParseAndValidationService parseAndValidationService = new ParseAndValidationService();
-    private static ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     public static void main(String[] args) {
         //Select a student

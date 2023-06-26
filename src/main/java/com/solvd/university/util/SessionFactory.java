@@ -1,4 +1,4 @@
-package com.solvd.university.service.mybatisimpl;
+package com.solvd.university.util;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -12,7 +12,7 @@ public class SessionFactory {
     private SqlSessionFactory factory;
 
     private SessionFactory(){
-        String resource = "mybatis/mappers/mybatis_config.xml";
+        String resource = "src/main/resources/mybatis/mappers/mybatis_config.xml";
         Reader reader = null;
 
         try {

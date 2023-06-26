@@ -1,4 +1,4 @@
-package com.solvd.university.impl;
+package com.solvd.university.dao.impl;
 
 import com.solvd.university.dao.IExamDAO;
 import com.solvd.university.models.Exam;

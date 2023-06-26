@@ -1,7 +1,7 @@
-package com.solvd.university.impl;
+package com.solvd.university.dao.impl;
 
-import com.solvd.university.dao.IUserDAO;
-import com.solvd.university.models.User;
+import com.solvd.university.dao.ISubjectDAO;
+import com.solvd.university.models.Subject;
 import com.solvd.university.util.ConnectionPool;
 
 import java.sql.Connection;
@@ -11,29 +11,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO implements IUserDAO {
+public class SubjectDAO implements ISubjectDAO {
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-
     @Override
-    public User select(int id) {
-        String query = "SELECT id, name, surname, email, personal_id FROM users WHERE id = ?";
-        User user;
+    public Subject select(int id) {
+        String query = "SELECT id, name FROM subjects WHERE id = ?";
+        Subject subject;
         Connection connection = null;
+
         try {
             connection = connectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-
             resultSet.next();
-            int userId = resultSet.getInt("id");
-            String name = resultSet.getString("name");
-            String surname = resultSet.getString("surname");
-            String email = resultSet.getString("email");
-            int personalId = resultSet.getInt("personal_id");
-
-            user = new User(userId, name, surname, personalId, email);
+            int subjectId = resultSet.getInt("id");
+            String subjectName = resultSet.getString("name");
+            subject = new Subject(subjectId, subjectName);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -42,29 +37,25 @@ public class UserDAO implements IUserDAO {
                 connectionPool.releaseConnection(connection);
             }
         }
-        return user;
+        return subject;
     }
-    @Override
-    public List<User> selectAll() {
-        String query = "SELECT id, name, surname, email, personal_id FROM users";
-        List<User> users = new ArrayList<>();
-        User user;
-        Connection connection = null;
 
+
+    @Override
+    public List<Subject> selectAll() {
+        String query = "SELECT id, name FROM subjects";
+        List<Subject> subjects = new ArrayList<>();
+        Subject subject;
+        Connection connection = null;
         try {
             connection = connectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
-                int userId = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String surname = resultSet.getString("surname");
-                String email = resultSet.getString("email");
-                int personalId = resultSet.getInt("personal_id");
-
-                user = new User(userId, name, surname, personalId, email);
-                users.add(user);
+                int subjectId = resultSet.getInt("id");
+                String subjectName = resultSet.getString("name");
+                subject = new Subject(subjectId, subjectName);
+                subjects.add(subject);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -73,20 +64,20 @@ public class UserDAO implements IUserDAO {
                 connectionPool.releaseConnection(connection);
             }
         }
-        return users;
+        return subjects;
     }
 
+
     @Override
-    public void insert(User user) {
-        String query = "INSERT into users (name, surname, email, personal_id) VALUES (?, ?, ?, ?)";
+    public void insert(Subject subject) {
+        String query = "INSERT INTO subjects (name) VALUES (?)";
         Connection connection = null;
+
         try {
             connection = connectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, user.getName());
-            statement.setString(2, user.getSurname());
-            statement.setString(3, user.getEmail());
-            statement.setInt(4, user.getPersonalId());
+
+            statement.setString(1, subject.getName());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -98,18 +89,15 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    public void update(User user, int id) {
-        String query = "UPDATE users SET name = ?, surname = ?, email = ?, personal_id = ? WHERE id = ?";
+    public void update(Subject subject, int id) {
+        String query = "UPDATE subjects SET name = ? WHERE id = " + id;
         Connection connection = null;
 
         try {
             connection = connectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, user.getName());
-            statement.setString(2, user.getSurname());
-            statement.setString(3, user.getEmail());
-            statement.setInt(4, user.getPersonalId());
-            statement.setInt(5, id);
+
+            statement.setString(1, subject.getName());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -120,15 +108,16 @@ public class UserDAO implements IUserDAO {
         }
     }
 
+
     @Override
-    public void delete(User user) {
-        String query = "DELETE FROM users WHERE id = ?";
+    public void delete(Subject subject) {
+        String query = "DELETE FROM subjects WHERE id = ?";
         Connection connection = null;
         try {
             connection = connectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
 
-            statement.setInt(1, user.getUserId());
+            statement.setInt(1, subject.getSubjectId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -137,5 +126,5 @@ public class UserDAO implements IUserDAO {
                 connectionPool.releaseConnection(connection);
             }
         }
-    }}
-
+    }
+}

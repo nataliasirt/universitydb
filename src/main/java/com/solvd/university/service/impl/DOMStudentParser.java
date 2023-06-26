@@ -1,8 +1,7 @@
-package com.solvd.university.parser;
+package com.solvd.university.service.impl;
 
 import com.solvd.university.Main;
 import com.solvd.university.models.Student;
-import com.solvd.university.util.IParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
@@ -16,7 +15,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 
-public class DOMStudentParser implements IParser<Student> {
+public class DOMStudentParser implements IDOMParser<Student> {
     private static final Logger LOGGER = LogManager.getLogger(Main.class);
     private Document document;
 
@@ -35,7 +34,8 @@ public class DOMStudentParser implements IParser<Student> {
         student.setStudentId(Integer.parseInt(getElementValue(studentElement, "studentId")));
         student.setEnrollment(Integer.parseInt(getElementValue(studentElement, "enrollment")));
         return student;}
-public String getElementValue(Element parentElement, String elementName){
+
+    public String getElementValue(Element parentElement, String elementName){
     NodeList nodeList = parentElement.getElementsByTagName(elementName);
     Element element = (Element) nodeList.item(0);
     return element.getTextContent();

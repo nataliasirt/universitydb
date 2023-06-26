@@ -1,6 +1,6 @@
 package com.solvd.university.service.impl;
 
-import com.solvd.university.impl.SubjectDAO;
+import com.solvd.university.dao.impl.SubjectDAO;
 import com.solvd.university.models.Subject;
 
 import java.util.List;

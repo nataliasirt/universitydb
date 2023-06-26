@@ -1,10 +1,11 @@
-package com.solvd.university.util;
+package com.solvd.university.service.impl;
 
 import com.solvd.university.Main;
 import com.solvd.university.models.Department;
 import com.solvd.university.models.Student;
-import com.solvd.university.parser.DOMStudentParser;
-import com.solvd.university.parser.JAXBDepartmentParser;
+import com.solvd.university.service.impl.DOMStudentParser;
+import com.solvd.university.service.impl.DOMValidator;
+import com.solvd.university.service.impl.JAXBDepartmentParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

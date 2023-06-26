@@ -1,8 +1,8 @@
-package com.solvd.university.util;
+package com.solvd.university.service.impl;
 
 import org.w3c.dom.Element;
 
-public interface IParser<T> {
+public interface IDOMParser<T> {
     T parse(String filePath);
     String getElementValue(Element parentElement, String elementName);
 }

@@ -1,10 +1,11 @@
 package com.solvd.university.service.impl;
 
 import com.solvd.university.dao.IStudentDAO;
-import com.solvd.university.impl.ExamDAO;
-import com.solvd.university.impl.StudentDAO;
+import com.solvd.university.dao.impl.ExamDAO;
+import com.solvd.university.dao.impl.StudentDAO;
 import com.solvd.university.models.Exam;
 import com.solvd.university.models.Student;
+import com.solvd.university.service.mybatisimpl.IStudentService;
 
 import java.util.Comparator;
 import java.util.List;

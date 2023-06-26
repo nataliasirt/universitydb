@@ -1,4 +1,4 @@
-package com.solvd.university.service.impl;
+package com.solvd.university.service.mybatisimpl;
 
 import com.solvd.university.models.Professor;
 
