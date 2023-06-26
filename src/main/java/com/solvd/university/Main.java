@@ -85,7 +85,6 @@ public class Main {
         //de-serializing a JSON into an object
         GroupService groupServiceObj = jsonService.deserializeJsonToObject(GroupService.class, jsonFile);
         LOGGER.info(groupServiceObj);
-
         }
     }
 
