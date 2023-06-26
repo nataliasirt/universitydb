@@ -4,6 +4,8 @@ import com.solvd.university.models.Department;
 import com.solvd.university.models.Professor;
 import com.solvd.university.models.Student;
 import com.solvd.university.models.Subject;
+import com.solvd.university.service.GroupService;
+import com.solvd.university.service.impl.JsonService;
 import com.solvd.university.service.impl.ProfessorService;
 import com.solvd.university.service.impl.StudentService;
 import com.solvd.university.service.impl.SubjectService;
@@ -12,6 +14,7 @@ import com.solvd.university.util.ParseAndValidationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.util.List;
 
 public class Main {
@@ -70,6 +73,18 @@ public class Main {
 
         //UnMarshall
         Department unMarshalled = parseAndValidationService.marshallDepartment(departmentJaxb);
+
+        //JSON
+        JsonService jsonService = new JsonService();
+        File jsonFile = new File("src/main/resources/jackson/groupdata.json");
+
+        //Serialize JSON
+        GroupService groupService = new GroupService();
+        jsonService.serializeObjectToJson(groupService, jsonFile);
+
+        //de-serializing a JSON into an object
+        GroupService groupServiceObj = jsonService.deserializeJsonToObject(GroupService.class, jsonFile);
+        LOGGER.info(groupServiceObj);
 
         }
     }
