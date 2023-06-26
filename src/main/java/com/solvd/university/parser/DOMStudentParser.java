@@ -21,7 +21,7 @@ public class DOMStudentParser {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
-            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+            LOGGER.info("Root element :" + doc.getDocumentElement().getNodeName());
             NodeList nList = doc.getElementsByTagName("student");
             LOGGER.info("----------------------------");
 
@@ -32,24 +32,24 @@ public class DOMStudentParser {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
 
-                    System.out.println("Student id : "
+                    LOGGER.info("Student id : "
                             + eElement.getAttribute("id"));
-                    System.out.println("First Name : "
+                    LOGGER.info("First Name : "
                             + eElement
                             .getElementsByTagName("firstname")
                             .item(0)
                             .getTextContent());
-                    System.out.println("Last Name : "
+                    LOGGER.info("Last Name : "
                             + eElement
                             .getElementsByTagName("lastname")
                             .item(0)
                             .getTextContent());
-                    System.out.println("Nick Name : "
+                    LOGGER.info("Nick Name : "
                             + eElement
                             .getElementsByTagName("nickname")
                             .item(0)
                             .getTextContent());
-                    System.out.println("Marks : "
+                    LOGGER.info("Marks : "
                             + eElement
                             .getElementsByTagName("marks")
                             .item(0)

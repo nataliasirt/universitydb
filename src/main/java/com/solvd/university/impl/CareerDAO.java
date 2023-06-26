@@ -26,7 +26,6 @@ public class CareerDAO implements ICareerDAO {
             Connection connection = connectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
-
             resultSet.next();
             int careerId = resultSet.getInt("id");
             String title = resultSet.getString("title");
