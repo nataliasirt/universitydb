@@ -15,16 +15,15 @@ import java.util.List;
 
 public class EmployeeDAO implements IEmployeeDAO {
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
-    Connection connection = connectionPool.getConnection();
     @Override
     public Employee select(int id) {
-        String query = "SELECT e.user_id, e.id, u.name, u.surname, u.email, u.personal_id, e.position FROM users u JOIN employees e on u.id = e.user_id and e.id = " + id;
+        String query = "SELECT e.user_id, e.id, u.name, u.surname, u.email, u.personal_id, e.position FROM users u " +
+                "JOIN employees e on u.id = e.user_id and e.id = " + id;
         Employee employee;
 
-        try {
-            Connection connection = connectionPool.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
 
             resultSet.next();
             int userId = resultSet.getInt("user_id");
@@ -39,22 +38,20 @@ public class EmployeeDAO implements IEmployeeDAO {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
-            connectionPool.releaseConnection(connection);
         }
         return employee;
     }
 
     @Override
     public List<Employee> selectAll() {
-        String query = "SELECT e.user_id, e.id, u.name, u.surname, u.email, u.personal_id, e.position FROM users u RIGHT JOIN employees e on u.id = e.user_id";
+        String query = "SELECT e.user_id, e.id, u.name, u.surname, u.email, u.personal_id, e.position FROM users u " +
+                "RIGHT JOIN employees e on u.id = e.user_id";
         List<Employee> employees = new ArrayList<>();
         Employee employee;
 
-        try {
-            Connection connection = connectionPool.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
                 int userId = resultSet.getInt("user_id");
@@ -70,66 +67,54 @@ public class EmployeeDAO implements IEmployeeDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
-            connectionPool.releaseConnection(connection);
         }
         return employees;
     }
+
     @Override
     public void insert(Employee employee) {
-        String query = "INSERT into employees (user_id, position) VALUES (?, ?)";
+        String query = "INSERT INTO employees (user_id, position) VALUES (?, ?)";
 
-        try {
-            Connection connection = connectionPool.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setInt(1, employee.getUserId());
             statement.setString(2, employee.getPosition());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
-            connectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public void update(Employee employee, int id) {
-        String query = "UPDATE users u JOIN employees e on u.id = e.user_id SET u.name = ?, u.surname = ?, u.email = ?, u.personal_id = ?, e.position = ? WHERE u.id = ?";
+        String query = "UPDATE users u JOIN employees e ON u.id = e.user_id SET u.name = ?, u.surname = ?, u.email = ?, u.personal_id = ?, e.position = ? WHERE u.id = ?";
 
-        try {
-            Connection connection = connectionPool.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-
-            statement.setInt(1, employee.getUserId());
-            statement.setString(2, employee.getName());
-            statement.setString(3, employee.getSurname());
-            statement.setString(4, employee.getEmail());
-            statement.setInt(5, employee.getPersonalId());
-            statement.setString(6, employee.getPosition());
-            statement.setInt(7, id);
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, employee.getName());
+            statement.setString(2, employee.getSurname());
+            statement.setString(3, employee.getEmail());
+            statement.setInt(4, employee.getPersonalId());
+            statement.setString(5, employee.getPosition());
+            statement.setInt(6, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
-            connectionPool.releaseConnection(connection);
         }
-        }
+    }
+
 
     @Override
     public void delete(Employee employee) {
-        String query = "DELETE FROM users u JOIN employees e on u.id = e.user_id WHERE u.id = ?";
+        String query = "DELETE FROM users u JOIN employees e ON u.id = e.user_id WHERE u.id = ?";
 
-        try {
-            Connection connection = connectionPool.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, employee.getUserId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
-            connectionPool.releaseConnection(connection);
-        }
         }
     }
+}

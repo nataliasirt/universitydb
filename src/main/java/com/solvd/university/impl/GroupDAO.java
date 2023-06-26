@@ -4,7 +4,6 @@ package com.solvd.university.impl;
 import com.solvd.university.dao.IGroupDAO;
 import com.solvd.university.models.Group;
 import com.solvd.university.models.Professor;
-import com.solvd.university.models.Student;
 import com.solvd.university.models.Subject;
 import com.solvd.university.util.ConnectionPool;
 
@@ -19,6 +18,7 @@ import java.util.List;
 public class GroupDAO implements IGroupDAO {
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
     Connection connection = connectionPool.getConnection();
+
     @Override
     public Group select(int id) {
         String query = "SELECT g.id, g.code, p.user_id, g.head, u.name, u.surname, u.email, u.personal_id, p.degree, g.subject_id, s.name as subject_name FROM group g " +
@@ -29,17 +29,13 @@ public class GroupDAO implements IGroupDAO {
         Group group;
         Professor head = new Professor();
         Subject subject = new Subject();
-
         try {
             Connection connection = connectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
-
             resultSet.next();
-
             int groupId = resultSet.getInt("id");
             String groupCode = resultSet.getString("code");
-
 
             head.setUserId(resultSet.getInt("user_id"));
             head.setProfessorId(resultSet.getInt("head"));
@@ -48,16 +44,12 @@ public class GroupDAO implements IGroupDAO {
             head.setEmail(resultSet.getString("email"));
             head.setPersonalId(resultSet.getInt("personal_id"));
             head.setDegree(resultSet.getString("degree"));
-
-
             subject.setSubjectId(resultSet.getInt("subject_id"));
-            subject.setName("subject_name");
-
+            subject.setName(resultSet.getString("subject_name"));
             group = new Group(groupId, groupCode, head, subject);
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             connectionPool.releaseConnection(connection);
         }
         return group;
@@ -85,7 +77,6 @@ public class GroupDAO implements IGroupDAO {
                 int groupId = resultSet.getInt("id");
                 String groupCode = resultSet.getString("code");
 
-
                 head.setUserId(resultSet.getInt("user_id"));
                 head.setProfessorId(resultSet.getInt("head"));
                 head.setName(resultSet.getString("name"));
@@ -94,26 +85,27 @@ public class GroupDAO implements IGroupDAO {
                 head.setPersonalId(resultSet.getInt("personal_id"));
                 head.setDegree(resultSet.getString("degree"));
 
-
                 subject.setSubjectId(resultSet.getInt("subject_id"));
-                subject.setName("subject_name");
+                subject.setName(resultSet.getString("subject_name"));
 
                 group = new Group(groupId, groupCode, head, subject);
                 groups.add(group);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             connectionPool.releaseConnection(connection);
         }
         return groups;
     }
+
     @Override
     public void insert(Group group) {
         String query = "INSERT INTO groups (code, subject_id, head) VALUES (?, ?, ?)";
 
+        Connection connection = null;
         try {
-            Connection connection = connectionPool.getConnection();
+            connection = connectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
 
             statement.setString(1, group.getGroupCode());
@@ -122,23 +114,27 @@ public class GroupDAO implements IGroupDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
-            connectionPool.releaseConnection(connection);
+        } finally {
+            if (connection != null) {
+                connectionPool.releaseConnection(connection);
+            }
         }
     }
 
+
     @Override
     public void update(Group group, int id) {
-        String query = "UPDATE groups SET code = ?, subject_id = ? head = ? WHERE id = " + id;
+        String query = "UPDATE groups SET code = ?, subject_id = ?, head = ? WHERE id = ?";
 
-        try {
-            Connection connection = connectionPool.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setString(1, group.getGroupCode());
             statement.setInt(2, group.getSubject().getSubjectId());
             statement.setInt(3, group.getHead().getProfessorId());
+            statement.setInt(4, id);
             statement.executeUpdate();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -146,50 +142,22 @@ public class GroupDAO implements IGroupDAO {
 
     @Override
     public void delete(Group group) {
-        String query = "DELETE FROM groups WHERE id = ?";
+            String query = "DELETE FROM groups WHERE id = ?";
 
-        try {
-            Connection connection = connectionPool.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
+            Connection connection = null;
+            try {
+                connection = connectionPool.getConnection();
+                PreparedStatement statement = connection.prepareStatement(query);
 
-            statement.setInt(1, group.getGroupId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }finally {
-            connectionPool.releaseConnection(connection);
-        }
-    }
-
-    public List<Student> selectGroupStudents(Group group) {
-        String query = "SELECT s.user_id, s.id, u.name, u.surname, u.email, u.personal_id, s.enrollment FROM users u " +
-                "RIGHT JOIN students s on u.id = s.user_id " +
-                "JOIN group_student gs on gs.student_id = s.id and gs.group_id = " + group.getGroupId();
-        List<Student> students = new ArrayList<>();
-        Student student;
-
-        try {
-            Connection connection = connectionPool.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                int userId = resultSet.getInt("user_id");
-                int studentId = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String surname = resultSet.getString("surname");
-                String email = resultSet.getString("email");
-                int personalId = resultSet.getInt("personal_id");
-                int enrollment = resultSet.getInt("enrollment");
-
-                student = new Student(userId, name, surname, personalId, email, studentId, enrollment);
-                students.add(student);
+                statement.setInt(1, group.getGroupId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } finally {
+                if (connection != null) {
+                    connectionPool.releaseConnection(connection);
+                }
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }finally {
-            connectionPool.releaseConnection(connection);
         }
-        return students;
+
     }
-}
