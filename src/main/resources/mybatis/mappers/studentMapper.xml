@@ -4,13 +4,9 @@
 
 <mapper namespace="dao.IStudentDAO">
     <resultMap id="studentResultMap" type="models.Student" autoMapping="false">
-        <result column="user_id" property="userId"/>
-        <result column="name" property="name"/>
-        <result column="surname" property="surname"/>
-        <result column="email" property="email"/>
-        <result column="personal_id" property="personalId"/>
-        <result column="id" property="studentId"/>
+        <result column="student_id" property="studentId"/>
         <result column="enrollment" property="enrollment"/>
+        <result column="exams" property="exams"/>
     </resultMap>
 
     <select id="select" parameterType="int" resultMap="studentResultMap">

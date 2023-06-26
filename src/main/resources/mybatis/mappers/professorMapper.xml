@@ -4,13 +4,9 @@
 
 <mapper namespace="dao.IProfessorDAO">
     <resultMap id="professorResultMap" type="models.Professor" autoMapping="false">
-        <result column="user_id" property="userId"/>
-        <result column="name" property="name"/>
-        <result column="surname" property="surname"/>
-        <result column="email" property="email"/>
-        <result column="personal_id" property="personalId"/>
-        <result column="id" property="professorId"/>
+        <result column="professor_id" property="professorId"/>
         <result column="degree" property="degree"/>
+        <result column="workedHours" property="workedHours"/>
     </resultMap>
 
     <select id="select" parameterType="int" resultMap="professorResultMap">

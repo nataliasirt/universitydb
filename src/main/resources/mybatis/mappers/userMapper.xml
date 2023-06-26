@@ -4,7 +4,7 @@
 
 <mapper namespace="dao.IUserDAO">
     <resultMap id="userResultMap" type="models.User" autoMapping="false">
-        <result column="id" property="userId"/>
+        <result column="user_id" property="user_Id"/>
         <result column="name" property="name"/>
         <result column="surname" property="surname"/>
         <result column="email" property="email"/>
