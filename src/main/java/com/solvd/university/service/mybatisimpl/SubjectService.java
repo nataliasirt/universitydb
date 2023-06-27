@@ -1,8 +1,8 @@
 package com.solvd.university.service.mybatisimpl;
 
-import com.solvd.university.dao.IStudentDAO;
-import com.solvd.university.models.Student;
-import com.solvd.university.service.IStudentService;
+import com.solvd.university.dao.ISubjectDAO;
+import com.solvd.university.models.Subject;
+import com.solvd.university.service.ISubjectService;
 import com.solvd.university.util.IdException;
 import com.solvd.university.util.SqlSessionUtil;
 import org.apache.ibatis.io.Resources;
@@ -15,15 +15,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class StudentService implements IStudentService {
-    private static final Logger LOGGER = LogManager.getLogger(StudentService.class);
-
+public class SubjectService implements ISubjectService {
+    private static final Logger LOGGER = LogManager.getLogger(SubjectService.class);
     @Override
-    public Student getStudentById(int id){
+    public Subject getSubjectById(int id){
         if (id > 0) {
             try (InputStream stream = Resources.getResourceAsStream("mybatis-config.xml")) {
                 try (SqlSession session = new SqlSessionFactoryBuilder().build(stream).openSession()) {
-                    return session.selectOne("com.solvd.delivery.service.ICustomerService.CustomerMapper.getByID", id);
+                    return session.selectOne("com.solvd.delivery.service.ISubjectService.CustomerMapper.getByID", id);
                 }
             } catch (IOException e) {
                 LOGGER.warn("IOException, error creating the sql session" + e.getMessage());
@@ -33,10 +32,10 @@ public class StudentService implements IStudentService {
         return null;
     }
     @Override
-    public List<Student> getAllStudents() {
+    public List<Subject> getAllSubjects() {
         try (InputStream stream = Resources.getResourceAsStream("mybatis-config.xml")) {
             try (SqlSession session = new SqlSessionFactoryBuilder().build(stream).openSession()) {
-                return session.selectList("com.solvd.universitydb.IStudentService.studentMapper.getAll");
+                return session.selectList("com.solvd.universitydb.ISubjectService.studentMapper.getAll");
             }
         } catch (IOException e) {
             LOGGER.warn("IOException, error creating the sql session" + e.getMessage());
@@ -44,25 +43,24 @@ public class StudentService implements IStudentService {
         }
         return null;
     }
-    @Override
-    public void update(Student student, int id){
-        if(student !=null) {
+    public void update(Subject subject, int id){
+        if(subject !=null) {
             try(SqlSession session = SqlSessionUtil.getSession().openSession();) {
-                IStudentDAO studentDAO = session.getMapper(IStudentDAO.class);
-                studentDAO.update(student, id);
+                ISubjectDAO subjectDAO = session.getMapper(ISubjectDAO.class);
+                subjectDAO.update(subject, id);
                 session.commit();
             }
         }else{
-            LOGGER.error("Student object is null.");
+            LOGGER.error("Subject object is null.");
             throw new NullPointerException();
         }
     }
     @Override
-    public void delete (Student student, int id){
+    public void delete (Subject subject, int id){
         if(id>=1) {
             try(SqlSession session = SqlSessionUtil.getSession().openSession();) {
-                IStudentDAO studentDAO = session.getMapper(IStudentDAO.class);
-                studentDAO.delete(student);
+                ISubjectDAO subjectDAO = session.getMapper(ISubjectDAO.class);
+                subjectDAO.delete(subject);
                 session.commit();
             }
         }else{
@@ -71,24 +69,17 @@ public class StudentService implements IStudentService {
         }
     }
     @Override
-    public void insert (Student student, int id){
-        if(student !=null) {
+    public void registerSubject(Subject subject, int id) {
+        if(subject !=null) {
             try(SqlSession session = SqlSessionUtil.getSession().openSession();) {
-                IStudentDAO studentDAO = session.getMapper(IStudentDAO.class);
-                studentDAO.update(student, id);
+                ISubjectDAO subjectDAO = session.getMapper(ISubjectDAO.class);
+                subjectDAO.insert(subject);
                 session.commit();
             }
         }else{
-            LOGGER.error("Student object is null.");
+            LOGGER.error("Subject object is null.");
             throw new NullPointerException();
         }
-
-
-}
-
-}
-
-
-
-
+    }
+    }
 

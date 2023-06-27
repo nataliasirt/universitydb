@@ -17,10 +17,6 @@
         SELECT p.user_id, p.id, u.name, u.surname, u.email, u.personal_id, p.degree FROM users u RIGHT JOIN professors p on u.id = p.user_id
     </select>
 
-    <insert id="insert" parameterType="models.Professor">
-        INSERT into professors (user_id, degree) VALUES (#{professor.userId}, #{professor.degree})
-    </insert>
-
     <delete id="delete">
         DELETE FROM users u JOIN professors p on u.id = p.user_id WHERE u.id = #{id}
     </delete>

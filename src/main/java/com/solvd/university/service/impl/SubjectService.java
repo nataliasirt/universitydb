@@ -10,29 +10,28 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 public class SubjectService implements ISubjectService {
-    private final static Logger LOGGER = LogManager.getLogger(StudentService.class);
+    private final static Logger LOGGER = LogManager.getLogger(SubjectService.class);
     private final ISubjectDAO subjectDAO = new SubjectDAO();
 
+    @Override
     public Subject getSubjectById(int id){
         if (id > 0) {
         return subjectDAO.select(id);
     } else LOGGER.warn("Invalid ID! ");
         return null;
 }
-
+    @Override
     public List<Subject> getAllSubjects() {
         return this.subjectDAO.selectAll();
     }
-
-    public void registerSubject(Subject subject) {
-        this.subjectDAO.insert(subject);
-    }
-
-    public void updateSubject(Subject subject, int id) {
+    @Override
+    public void update(Subject subject, int id) {
         this.subjectDAO.update(subject, id);
     }
-
-    public void deleteSubject(Subject subject) {
+    @Override
+    public void delete(Subject subject, int id) {
         this.subjectDAO.delete(subject);
     }
+    @Override
+    public void registerSubject(Subject subject, int id){ this.subjectDAO.select(id);}
 }

@@ -20,7 +20,6 @@ public class Main {
     private static final String STUDENT_FILE_PATH = "src/main/resources/xml/student.xml";
     private static final String STUDENT_XSD_PATH = "src/main/resources/xml/student.xsd";
     private static final String INPUT_JAXB = "src/main/resources/xml/input_jaxb.xml";
-
     private static final ParseAndValidationService parseAndValidationService = new ParseAndValidationService();
 
     public static void main(String[] args) {
@@ -33,16 +32,13 @@ public class Main {
         List<Student> studentList = studentService.getAllStudents();
         LOGGER.info(studentList);
 
-        Student student1 = studentService.getFullStudentInfoById(1);
-        LOGGER.info(student1);
-
         //Select a professor
         ProfessorService professorService = new ProfessorService();
         Professor professorOne = professorService.getProfessorById(1);
         LOGGER.info(professorOne);
 
         //Select all professors
-        List<Professor> professorsList = professorService.getAllProfessorsAlphabetically();
+        List<Professor> professorsList = professorService.getAllProfessors();
         LOGGER.info(professorsList);
 
         //Select a subject
@@ -56,7 +52,7 @@ public class Main {
 
         //Add a new subject
         Subject subjectTwo = new Subject(11, "Chemistry");
-        subjectService.registerSubject(subjectTwo);
+        subjectService.registerSubject(subjectTwo, 11);
         LOGGER.info(subjectService.getAllSubjects());
 
         //Parse to object - DOM
