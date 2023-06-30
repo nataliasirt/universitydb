@@ -23,9 +23,6 @@ public class ParseAndValidationService {
         return department;
     }
 
-
-
-
     public Student parseStudent(String studentFilePath) {
         return studentParser.parse(studentFilePath);
     }
