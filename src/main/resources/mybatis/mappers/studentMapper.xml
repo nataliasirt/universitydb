@@ -2,7 +2,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="dao.IStudentDAO">
+<mapper namespace="com.solvd.university.dao.IStudentDAO">
     <resultMap id="studentResultMap" type="models.Student" autoMapping="false">
         <result column="student_id" property="studentId"/>
         <result column="enrollment" property="enrollment"/>
